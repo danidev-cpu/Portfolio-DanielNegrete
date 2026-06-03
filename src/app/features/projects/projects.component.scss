@@ -1,0 +1,284 @@
+// ── Tokens ──────────────────────────────────────────────────────────────────
+$accent:        #7c6af7;
+$accent-soft:   #a78bfa;
+$accent-blue:   #60a5fa;
+$text:          #f0f0f5;
+$text-muted:    rgba(240, 240, 245, 0.55);
+$surface:       rgba(255, 255, 255, 0.035);
+$surface-hover: rgba(255, 255, 255, 0.06);
+$border:        rgba(255, 255, 255, 0.07);
+$border-hover:  rgba(124, 106, 247, 0.45);
+
+// ── Section ──────────────────────────────────────────────────────────────────
+.projects {
+  background: #08080c;
+  padding: 7rem 1.5rem;
+  position: relative;
+  overflow: hidden;
+
+  // faint radial spotlight centrado
+  &::before {
+    content: '';
+    position: absolute;
+    top: -80px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 900px;
+    height: 400px;
+    background: radial-gradient(ellipse at center, rgba($accent, 0.07) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  &__container {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  &__header {
+    margin-bottom: 3.5rem;
+    max-width: 560px;
+  }
+
+  &__subtitle {
+    margin: 0.75rem 0 0;
+    font-size: 1rem;
+    color: $text-muted;
+    line-height: 1.7;
+  }
+
+  // Grid: featured ocupa 2 columnas en desktop
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+    align-items: start;
+  }
+}
+
+// ── Card ─────────────────────────────────────────────────────────────────────
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border-radius: 14px;
+  border: 1px solid $border;
+  background: $surface;
+  overflow: hidden;
+  transition:
+    transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1),
+    border-color 0.28s ease,
+    box-shadow 0.28s ease,
+    background 0.28s ease;
+  cursor: default;
+
+  // shimmer line top
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba($accent, 0.4), transparent);
+    opacity: 0;
+    transition: opacity 0.28s ease;
+  }
+
+  &:hover {
+    transform: translateY(-6px);
+    border-color: $border-hover;
+    background: $surface-hover;
+    box-shadow:
+      0 16px 48px rgba(0, 0, 0, 0.4),
+      0 0 0 1px rgba($accent, 0.12),
+      0 0 40px rgba($accent, 0.06);
+
+    &::before { opacity: 1; }
+
+    .card__icon svg {
+      stroke: $accent-soft;
+      transform: rotate(-8deg) scale(1.1);
+    }
+
+    .card__link-hint { color: $accent-soft; }
+  }
+
+  // ── Featured variant ────────────────────────────────────────────────────
+  &--featured {
+    grid-column: span 2;
+    border-color: rgba($accent, 0.22);
+    background: linear-gradient(
+      145deg,
+      rgba($accent, 0.07) 0%,
+      rgba(255, 255, 255, 0.03) 60%
+    );
+
+    &::before {
+      background: linear-gradient(90deg, transparent, rgba($accent, 0.7), transparent);
+      opacity: 1;
+    }
+
+    &:hover {
+      border-color: rgba($accent-soft, 0.55);
+      box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.45),
+        0 0 0 1px rgba($accent, 0.2),
+        0 0 60px rgba($accent, 0.1);
+    }
+
+    .card__icon {
+      background: rgba($accent, 0.15);
+      border-color: rgba($accent, 0.25);
+
+      svg { stroke: $accent-soft; }
+    }
+
+    .card__title { font-size: 1.4rem; }
+
+    .card__description { font-size: 1rem; }
+  }
+
+  &__featured-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.4rem 1rem;
+    background: rgba($accent, 0.1);
+    border-bottom: 1px solid rgba($accent, 0.18);
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: $accent-soft;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  &__body {
+    padding: 1.75rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+
+  &__icon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    border: 1px solid $border;
+    background: rgba(255, 255, 255, 0.04);
+    margin-bottom: 0.25rem;
+    flex-shrink: 0;
+    transition: background 0.2s ease, border-color 0.2s ease;
+
+    svg {
+      stroke: rgba($text, 0.4);
+      transition: stroke 0.25s ease, transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+  }
+
+  &__title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: $text;
+    margin: 0;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
+
+  &__description {
+    font-size: 0.9rem;
+    color: $text-muted;
+    line-height: 1.65;
+    margin: 0;
+    flex: 1;
+  }
+
+  &__stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 0.5rem;
+  }
+
+  &__footer {
+    padding: 0.9rem 1.75rem;
+    border-top: 1px solid $border;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  &__link-hint {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: rgba($text, 0.3);
+    letter-spacing: 0.02em;
+    transition: color 0.2s ease;
+  }
+}
+
+// ── Tech tag ─────────────────────────────────────────────────────────────────
+.tech-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.22rem 0.65rem;
+  border-radius: 5px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  color: rgba($text, 0.6);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+
+  .card:hover & {
+    color: rgba($accent-soft, 0.9);
+    background: rgba($accent, 0.1);
+    border-color: rgba($accent, 0.25);
+  }
+}
+
+// ── Section headings (shared) ────────────────────────────────────────────────
+.section-label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: $accent-soft;
+  margin-bottom: 0.75rem;
+}
+
+.section-title {
+  font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+  font-weight: 700;
+  color: $text;
+  margin: 0;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+// ── Responsive ────────────────────────────────────────────────────────────────
+@media (max-width: 900px) {
+  .projects__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .card--featured {
+    grid-column: span 2;
+  }
+}
+
+@media (max-width: 560px) {
+  .projects__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .card--featured {
+    grid-column: span 1;
+  }
+}

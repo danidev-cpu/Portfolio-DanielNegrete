@@ -1,0 +1,71 @@
+<section class="hero" id="inicio" aria-labelledby="hero-heading">
+  <div class="hero__bg-grid" aria-hidden="true"></div>
+  <div class="hero__glow hero__glow--left" aria-hidden="true"></div>
+  <div class="hero__glow hero__glow--right" aria-hidden="true"></div>
+
+  <div class="hero__container">
+    <div class="hero__layout">
+
+      <!-- Text column -->
+      <div class="hero__content">
+        <span class="hero__badge">Disponible para nuevas oportunidades</span>
+
+        <h1 class="hero__name" id="hero-heading">
+          Hola, soy <span class="hero__name-accent">{{ about.name }}</span>
+        </h1>
+
+        <p class="hero__bio">{{ about.bio }}</p>
+
+        <div class="hero__actions">
+          <a class="btn btn--primary" href="#proyectos">Ver proyectos</a>
+          <a class="btn btn--ghost" href="#contacto">Contacto</a>
+        </div>
+
+        <div class="hero__scroll-hint" aria-hidden="true">
+          <span></span>
+        </div>
+      </div>
+
+      <!-- Photo column -->
+      <div class="hero__photo-wrap" aria-hidden="true">
+        <div class="hero__photo-frame">
+          <img
+            class="hero__photo"
+            src="foto/fotoperfilCurriculum.jpeg"
+            alt="Foto de perfil de Daniel Negrete"
+            width="320"
+            height="320"
+            loading="eager"
+          />
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="about" id="sobre-mi" aria-labelledby="about-heading">
+  <div class="about__container">
+    <div class="about__header">
+      <span class="section-label">Sobre mí</span>
+      <h2 class="section-title" id="about-heading">Quién soy</h2>
+    </div>
+
+    <div class="about__body">
+      <p class="about__text">{{ aboutText }}</p>
+
+      <div class="about__skills">
+        @for (group of skills; track group.category) {
+          <div class="skill-group">
+            <h3 class="skill-group__title">{{ group.category }}</h3>
+            <div class="skill-group__badges">
+              @for (item of group.items; track item) {
+                <span class="badge">{{ item }}</span>
+              }
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</section>

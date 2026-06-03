@@ -1,0 +1,31 @@
+<nav class="navbar" role="navigation" aria-label="Main navigation">
+  <div class="navbar__container">
+    <a class="navbar__brand" href="#inicio" (click)="scrollTo($event, 'inicio')" aria-label="Inicio">
+      <span class="navbar__brand-text">DN<span class="navbar__brand-dot">.</span></span>
+    </a>
+
+    <button
+      class="navbar__toggle"
+      [class.navbar__toggle--open]="menuOpen"
+      (click)="toggleMenu()"
+      aria-label="Toggle menu"
+      [attr.aria-expanded]="menuOpen"
+    >
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <ul class="navbar__links" [class.navbar__links--open]="menuOpen" role="list">
+      @for (link of links; track link.fragment) {
+        <li>
+          <a
+            class="navbar__link"
+            [href]="'#' + link.fragment"
+            (click)="scrollTo($event, link.fragment)"
+          >{{ link.label }}</a>
+        </li>
+      }
+    </ul>
+  </div>
+</nav>

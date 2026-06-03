@@ -1,0 +1,64 @@
+<section class="experience" id="experiencia" aria-labelledby="experience-heading">
+  <div class="experience__container">
+
+    <div class="experience__header">
+      <span class="section-label">Experiencia</span>
+      <h2 class="section-title" id="experience-heading">Trayectoria profesional</h2>
+      <p class="experience__subtitle">
+        Experiencia en entornos corporativos reales, desde soporte técnico hasta desarrollo activo.
+      </p>
+    </div>
+
+    <div class="timeline" role="list">
+      @for (item of experience; track item.company; let last = $last) {
+        <article class="timeline__item" [class.timeline__item--current]="item.type === 'current'" role="listitem">
+
+          <!-- Connector line & node -->
+          <div class="timeline__axis" aria-hidden="true">
+            <div class="timeline__node">
+              @if (item.type === 'current') {
+                <span class="timeline__node-pulse"></span>
+              }
+            </div>
+            @if (!last) {
+              <div class="timeline__line"></div>
+            }
+          </div>
+
+          <!-- Card -->
+          <div class="timeline__card">
+            <div class="timeline__card-top">
+              <div class="timeline__meta">
+                <span class="timeline__period">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+                  {{ item.period }}
+                </span>
+                @if (item.type === 'current') {
+                  <span class="timeline__status">Activo</span>
+                }
+              </div>
+
+              <div class="timeline__titles">
+                <h3 class="timeline__company">{{ item.company }}</h3>
+                <p class="timeline__role">{{ item.role }}</p>
+              </div>
+            </div>
+
+            <p class="timeline__description">{{ item.description }}</p>
+
+            <ul class="timeline__highlights" aria-label="Logros y responsabilidades">
+              @for (point of item.highlights; track point) {
+                <li class="timeline__highlight">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                  {{ point }}
+                </li>
+              }
+            </ul>
+          </div>
+
+        </article>
+      }
+    </div>
+
+  </div>
+</section>

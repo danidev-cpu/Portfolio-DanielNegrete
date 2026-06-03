@@ -1,0 +1,268 @@
+// ── Tokens ──────────────────────────────────────────────────────────────────
+$accent:       #7c6af7;
+$accent-soft:  #a78bfa;
+$green:        #4ade80;
+$text:         #f0f0f5;
+$text-muted:   rgba(240, 240, 245, 0.55);
+$text-dim:     rgba(240, 240, 245, 0.3);
+$surface:      rgba(255, 255, 255, 0.035);
+$border:       rgba(255, 255, 255, 0.07);
+$border-hover: rgba(124, 106, 247, 0.4);
+
+$node-size:    14px;
+$axis-width:   64px;
+
+// ── Section ──────────────────────────────────────────────────────────────────
+.experience {
+  background: #0a0a0f;
+  padding: 7rem 1.5rem;
+
+  &__container {
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  &__header {
+    margin-bottom: 4rem;
+  }
+
+  &__subtitle {
+    margin: 0.75rem 0 0;
+    font-size: 1rem;
+    color: $text-muted;
+    line-height: 1.7;
+  }
+}
+
+// ── Timeline ──────────────────────────────────────────────────────────────────
+.timeline {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0; // spacing handled by axis line height
+
+  &__item {
+    display: grid;
+    grid-template-columns: $axis-width 1fr;
+    gap: 0 1.25rem;
+    position: relative;
+
+    // Hover lift on card only
+    &:hover .timeline__card {
+      border-color: $border-hover;
+      background: rgba(255, 255, 255, 0.055);
+      box-shadow:
+        0 12px 40px rgba(0, 0, 0, 0.35),
+        0 0 0 1px rgba($accent, 0.1);
+      transform: translateX(4px);
+    }
+
+    &:hover .timeline__node {
+      border-color: $accent;
+      background: rgba($accent, 0.15);
+    }
+  }
+}
+
+// ── Axis (node + line) ───────────────────────────────────────────────────────
+.timeline {
+  &__axis {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 1.85rem; // align node with card top content
+  }
+
+  &__node {
+    position: relative;
+    width: $node-size;
+    height: $node-size;
+    border-radius: 50%;
+    border: 2px solid rgba($text, 0.2);
+    background: #0a0a0f;
+    flex-shrink: 0;
+    transition: border-color 0.25s ease, background 0.25s ease;
+    z-index: 1;
+  }
+
+  &__node-pulse {
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    border: 2px solid rgba($accent, 0.5);
+    animation: pulse-ring 2.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  &__line {
+    flex: 1;
+    width: 1px;
+    background: linear-gradient(to bottom, rgba($accent, 0.25), $border 80%, transparent);
+    margin-top: 6px;
+    min-height: 2rem;
+  }
+
+  // current item — node glow
+  &__item--current &__node {
+    border-color: $accent;
+    background: rgba($accent, 0.12);
+    box-shadow: 0 0 12px rgba($accent, 0.3);
+  }
+}
+
+// ── Card ─────────────────────────────────────────────────────────────────────
+.timeline {
+  &__card {
+    margin-bottom: 2rem;
+    padding: 1.6rem 1.75rem;
+    border-radius: 12px;
+    border: 1px solid $border;
+    background: $surface;
+    transition:
+      border-color 0.25s ease,
+      background 0.25s ease,
+      box-shadow 0.25s ease,
+      transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  &__card-top {
+    margin-bottom: 1rem;
+  }
+
+  &__meta {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.6rem;
+  }
+
+  &__period {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: $text-dim;
+    letter-spacing: 0.03em;
+
+    svg { flex-shrink: 0; }
+  }
+
+  &__status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.18rem 0.6rem;
+    border-radius: 999px;
+    background: rgba($green, 0.1);
+    border: 1px solid rgba($green, 0.25);
+    color: $green;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+
+    &::before {
+      content: '';
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: $green;
+      box-shadow: 0 0 5px $green;
+      animation: blink 2s infinite;
+    }
+  }
+
+  &__company {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: $text;
+    margin: 0 0 0.2rem;
+    letter-spacing: -0.02em;
+  }
+
+  &__role {
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: $accent-soft;
+    margin: 0;
+    letter-spacing: 0.01em;
+  }
+
+  &__description {
+    font-size: 0.9rem;
+    color: $text-muted;
+    line-height: 1.7;
+    margin: 0 0 1.1rem;
+  }
+
+  &__highlights {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+    padding-top: 1rem;
+    border-top: 1px solid $border;
+  }
+
+  &__highlight {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.55rem;
+    font-size: 0.85rem;
+    color: $text-muted;
+    line-height: 1.5;
+
+    svg {
+      flex-shrink: 0;
+      margin-top: 2px;
+      stroke: rgba($accent-soft, 0.7);
+    }
+  }
+}
+
+// ── Section labels (shared) ──────────────────────────────────────────────────
+.section-label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: $accent-soft;
+  margin-bottom: 0.75rem;
+}
+
+.section-title {
+  font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+  font-weight: 700;
+  color: $text;
+  margin: 0;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+// ── Animations ────────────────────────────────────────────────────────────────
+@keyframes pulse-ring {
+  0%, 100% { transform: scale(1); opacity: 0.6; }
+  50%       { transform: scale(1.5); opacity: 0; }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.4; }
+}
+
+// ── Responsive ────────────────────────────────────────────────────────────────
+@media (max-width: 560px) {
+  .timeline {
+    &__item {
+      grid-template-columns: 36px 1fr;
+      gap: 0 0.75rem;
+    }
+  }
+
+  .timeline__card {
+    padding: 1.25rem;
+  }
+}

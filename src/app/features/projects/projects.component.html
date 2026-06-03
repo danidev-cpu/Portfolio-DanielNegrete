@@ -1,0 +1,52 @@
+<section class="projects" id="proyectos" aria-labelledby="projects-heading">
+  <div class="projects__container">
+    <div class="projects__header">
+      <span class="section-label">Proyectos</span>
+      <h2 class="section-title" id="projects-heading">Lo que he construido</h2>
+      <p class="projects__subtitle">
+        Una selección de proyectos que reflejan mi evolución como desarrollador.
+      </p>
+    </div>
+
+    <div class="projects__grid">
+      @for (project of projects; track project.name) {
+        <article
+          class="card"
+          [class.card--featured]="project.featured"
+          [attr.aria-label]="project.name"
+        >
+          @if (project.featured) {
+            <div class="card__featured-badge">
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+              </svg>
+              Proyecto destacado
+            </div>
+          }
+
+          <div class="card__body">
+            <div class="card__icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="16 18 22 12 16 6"/>
+                <polyline points="8 6 2 12 8 18"/>
+              </svg>
+            </div>
+
+            <h3 class="card__title">{{ project.name }}</h3>
+            <p class="card__description">{{ project.description }}</p>
+
+            <div class="card__stack" aria-label="Tecnologías usadas">
+              @for (tech of project.stack; track tech) {
+                <span class="tech-tag">{{ tech }}</span>
+              }
+            </div>
+          </div>
+
+          <div class="card__footer">
+            <span class="card__link-hint">Ver detalles →</span>
+          </div>
+        </article>
+      }
+    </div>
+  </div>
+</section>

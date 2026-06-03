@@ -1,0 +1,263 @@
+// ── Tokens ──────────────────────────────────────────────────────────────────
+$accent:      #7c6af7;
+$accent-soft: #a78bfa;
+$accent-blue: #60a5fa;
+$text:        #f0f0f5;
+$text-muted:  rgba(240, 240, 245, 0.5);
+$text-dim:    rgba(240, 240, 245, 0.28);
+$border:      rgba(255, 255, 255, 0.07);
+
+// ── Section ──────────────────────────────────────────────────────────────────
+.contact {
+  position: relative;
+  background: #06060a;
+  padding: 8rem 1.5rem 7rem;
+  overflow: hidden;
+  text-align: center;
+
+  // ── Background layers ─────────────────────────────────────────────────────
+  &__bg { position: absolute; inset: 0; pointer-events: none; }
+
+  &__glow {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(110px);
+
+    &--a {
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(circle, rgba($accent, 0.18) 0%, transparent 70%);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    &--b {
+      width: 400px;
+      height: 300px;
+      background: rgba($accent-blue, 0.08);
+      bottom: -80px;
+      right: -80px;
+    }
+  }
+
+  &__grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 48px 48px;
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+  }
+
+  // ── Content ───────────────────────────────────────────────────────────────
+  &__container {
+    position: relative;
+    max-width: 680px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+
+  // 1st level — eyebrow
+  &__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.32rem 0.9rem;
+    border-radius: 999px;
+    border: 1px solid rgba($accent, 0.3);
+    background: rgba($accent, 0.07);
+    color: $accent-soft;
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 1.75rem;
+  }
+
+  // 2nd level — main heading (largest visual element)
+  &__heading {
+    font-size: clamp(3rem, 9vw, 6.5rem);
+    font-weight: 900;
+    color: $text;
+    margin: 0 0 1.5rem;
+    line-height: 1.0;
+    letter-spacing: -0.04em;
+  }
+
+  &__heading-accent {
+    background: linear-gradient(135deg, $accent 0%, $accent-soft 45%, $accent-blue 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    position: relative;
+
+    // Underline decoration
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 4px;
+      left: 0;
+      right: 0;
+      height: 3px;
+      border-radius: 2px;
+      background: linear-gradient(90deg, $accent, $accent-soft, $accent-blue);
+      opacity: 0.5;
+    }
+  }
+
+  // 3rd level — supporting copy
+  &__copy {
+    font-size: 1.05rem;
+    color: $text-muted;
+    line-height: 1.75;
+    max-width: 480px;
+    margin: 0 0 2.75rem;
+  }
+
+  // 4th level — Primary CTA button (dominant interactive element)
+  &__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.85rem;
+    padding: 1rem 2.2rem;
+    border-radius: 14px;
+    background: linear-gradient(135deg, $accent 0%, mix($accent, $accent-soft, 50%) 100%);
+    color: #fff;
+    font-size: 1.05rem;
+    font-weight: 700;
+    text-decoration: none;
+    letter-spacing: 0.01em;
+    box-shadow:
+      0 6px 30px rgba($accent, 0.45),
+      0 0 0 1px rgba($accent, 0.3),
+      inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    position: relative;
+    overflow: hidden;
+    transition:
+      transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
+      box-shadow 0.25s ease;
+    margin-bottom: 1.25rem;
+
+    // shimmer sweep on hover
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 60%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+      transition: left 0.5s ease;
+    }
+
+    &:hover {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow:
+        0 12px 40px rgba($accent, 0.6),
+        0 0 0 1px rgba($accent, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+
+      &::before { left: 140%; }
+
+      .contact__cta-arrow {
+        transform: translateX(4px);
+      }
+    }
+
+    &:active {
+      transform: translateY(-1px) scale(0.99);
+    }
+  }
+
+  &__cta-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.15);
+    flex-shrink: 0;
+  }
+
+  &__cta-arrow {
+    transition: transform 0.2s ease;
+    flex-shrink: 0;
+  }
+
+  // 5th level — email chip (secondary info, low visual weight)
+  &__email-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.82rem;
+    color: $text-dim;
+    letter-spacing: 0.02em;
+    margin: 0 0 2.5rem;
+    font-family: 'Courier New', monospace;
+
+    svg { flex-shrink: 0; }
+  }
+
+  // Divider line
+  &__secondary {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    padding-top: 2rem;
+    border-top: 1px solid $border;
+    width: 100%;
+    justify-content: center;
+  }
+
+  &__ghost-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: $text-muted;
+    text-decoration: none;
+    transition: color 0.2s ease;
+
+    &:hover { color: $accent-soft; }
+  }
+
+  &__divider {
+    color: $text-dim;
+    font-size: 1.1rem;
+    line-height: 1;
+  }
+
+  &__location {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.82rem;
+    color: $text-dim;
+
+    svg { flex-shrink: 0; }
+  }
+}
+
+// ── Responsive ────────────────────────────────────────────────────────────────
+@media (max-width: 480px) {
+  .contact {
+    &__cta {
+      width: 100%;
+      justify-content: center;
+      font-size: 0.95rem;
+      padding: 0.9rem 1.5rem;
+    }
+
+    &__secondary {
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+  }
+}
