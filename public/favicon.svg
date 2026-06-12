@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <!-- Background -->
+  <rect width="32" height="32" rx="7" fill="#08080c"/>
+  <!-- Subtle border -->
+  <rect width="32" height="32" rx="7" fill="none" stroke="rgba(167,139,250,0.25)" stroke-width="1"/>
+  <!-- DN text -->
+  <text
+    x="3"
+    y="22"
+    font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif"
+    font-weight="700"
+    font-size="14"
+    letter-spacing="-0.5"
+    fill="#f0f0f5"
+  >DN</text>
+  <!-- Purple dot -->
+  <text
+    x="24"
+    y="22"
+    font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif"
+    font-weight="700"
+    font-size="14"
+    fill="#a78bfa"
+  >.</text>
+</svg>

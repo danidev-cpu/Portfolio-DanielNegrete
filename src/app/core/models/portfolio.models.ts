@@ -3,6 +3,7 @@ export interface Project {
   stack: string[];
   description: string;
   featured?: boolean;
+  url?: string;
 }
 
 export interface Experience {

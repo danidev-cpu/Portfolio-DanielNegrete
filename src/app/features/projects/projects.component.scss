@@ -219,6 +219,29 @@ $border-hover:  rgba(124, 106, 247, 0.45);
     letter-spacing: 0.02em;
     transition: color 0.2s ease;
   }
+
+  &__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: rgba($accent-soft, 0.7);
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    transition: color 0.2s ease, gap 0.2s ease;
+
+    svg { transition: transform 0.2s ease; }
+
+    &:hover {
+      color: $accent-soft;
+      gap: 0.5rem;
+
+      svg { transform: translate(2px, -2px); }
+    }
+  }
+
+  &--linked { cursor: pointer; }
 }
 
 // ── Tech tag ─────────────────────────────────────────────────────────────────

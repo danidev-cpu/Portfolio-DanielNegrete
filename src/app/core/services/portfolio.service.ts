@@ -14,16 +14,19 @@ export class PortfolioService {
       stack: ['Angular', 'Laravel', 'MySQL'],
       description: 'Lideré el desarrollo de esta app de gestión clínica.',
       featured: true,
+      url: 'https://danidev-cpu2.github.io/habitus/',
     },
     {
       name: 'School Cafeteria',
       stack: ['Spring Boot', 'Java'],
       description: 'Gestión de servicios de cafetería escolar.',
+      url: 'https://danidev-cpu2.github.io/landing-page/',
     },
     {
       name: 'Página Web Temática eSports',
       stack: ['HTML/CSS', 'JavaScript', 'Sass'],
       description: 'Presentación y maquetación.',
+      url: 'https://tayl0rh.github.io/proyecto-disenyo/',
     },
   ];
 

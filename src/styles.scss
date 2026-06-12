@@ -47,6 +47,12 @@ body {
   color: #f0f0f5;
 }
 
+/* ── Custom cursor — applied by CursorComponent on non-touch devices ───────── */
+body.hide-cursor,
+body.hide-cursor * {
+  cursor: none !important;
+}
+
 /* ── Layout shell ──────────────────────────────────────────────────────────── */
 #main-content {
   width: 100%;

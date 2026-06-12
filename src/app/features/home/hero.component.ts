@@ -1,11 +1,13 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PortfolioService } from '../../core/services/portfolio.service';
+import { CursorTextDirective } from '../../shared/directives/cursor-text.directive';
+import { CursorActionDirective } from '../../shared/directives/cursor-action.directive';
 
 @Component({
   selector: 'app-hero',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, CursorTextDirective, CursorActionDirective],
   templateUrl: './hero.component.html',
   styleUrl: './hero.component.scss',
 })

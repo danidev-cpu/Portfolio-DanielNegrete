@@ -2,7 +2,7 @@
   <div class="projects__container">
     <div class="projects__header">
       <span class="section-label">Proyectos</span>
-      <h2 class="section-title" id="projects-heading">Lo que he construido</h2>
+      <h2 class="section-title" id="projects-heading" cursorText>Lo que he construido</h2>
       <p class="projects__subtitle">
         Una selección de proyectos que reflejan mi evolución como desarrollador.
       </p>
@@ -13,6 +13,7 @@
         <article
           class="card"
           [class.card--featured]="project.featured"
+          [class.card--linked]="!!project.url"
           [attr.aria-label]="project.name"
         >
           @if (project.featured) {
@@ -32,7 +33,7 @@
               </svg>
             </div>
 
-            <h3 class="card__title">{{ project.name }}</h3>
+            <h3 class="card__title" cursorText>{{ project.name }}</h3>
             <p class="card__description">{{ project.description }}</p>
 
             <div class="card__stack" aria-label="Tecnologías usadas">
@@ -43,7 +44,25 @@
           </div>
 
           <div class="card__footer">
-            <span class="card__link-hint">Ver detalles →</span>
+            @if (project.url) {
+              <a
+                class="card__link"
+                [href]="project.url"
+                target="_blank"
+                rel="noopener noreferrer"
+                [attr.aria-label]="'Ver proyecto ' + project.name"
+                cursorAction
+              >
+                Ver proyecto
+                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                  <polyline points="15 3 21 3 21 9"/>
+                  <line x1="10" x2="21" y1="14" y2="3"/>
+                </svg>
+              </a>
+            } @else {
+              <span class="card__link-hint">Ver detalles →</span>
+            }
           </div>
         </article>
       }

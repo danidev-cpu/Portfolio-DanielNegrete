@@ -1,0 +1,70 @@
+<div
+  #cursorEl
+  class="cursor"
+  [attr.data-state]="state()"
+  aria-hidden="true"
+  role="presentation"
+>
+
+  <!-- ── State 1: Default — ultra-thin vector arrow + glowing tip ─────────── -->
+  <div class="cursor__arrow">
+    <svg
+      width="20"
+      height="24"
+      viewBox="0 0 20 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <!-- Arrow body -->
+      <path
+        d="M2.5 2.5 L2.5 19.5 L7 15 L10.5 22 L13 21 L9.5 14.5 L15.5 14.5 Z"
+        fill="rgba(8,8,12,0.82)"
+        stroke="rgba(167,139,250,0.88)"
+        stroke-width="1.1"
+        stroke-linejoin="round"
+        stroke-linecap="round"
+      />
+      <!-- Tip node -->
+      <circle cx="2.5" cy="2.5" r="1.8" fill="#a78bfa" />
+    </svg>
+    <!-- Radial glow at tip -->
+    <span class="cursor__tip-glow" aria-hidden="true"></span>
+  </div>
+
+  <!-- ── State 2: Text — fine circle ring with backdrop-blur ──────────────── -->
+  <div class="cursor__text-ring" aria-hidden="true"></div>
+
+  <!-- ── State 3: Action — technical crosshair + corner brackets ─────────── -->
+  <div class="cursor__crosshair" aria-hidden="true">
+    <div class="cursor__cross">
+      <span class="cursor__cross-h"></span>
+      <span class="cursor__cross-v"></span>
+    </div>
+    <!-- Corner brackets -->
+    <span class="cursor__bracket cursor__bracket--tl"></span>
+    <span class="cursor__bracket cursor__bracket--tr"></span>
+    <span class="cursor__bracket cursor__bracket--bl"></span>
+    <span class="cursor__bracket cursor__bracket--br"></span>
+    <!-- Center lock dot -->
+    <span class="cursor__lock-dot"></span>
+  </div>
+
+  <!-- ── State 4: Drag — bidirectional drag indicator ─────────────────────── -->
+  <div class="cursor__drag" aria-hidden="true">
+    <svg width="36" height="16" viewBox="0 0 36 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Left arrow -->
+      <path d="M9 8 L3 8 M3 8 L7 5 M3 8 L7 11"
+        stroke="rgba(167,139,250,0.85)" stroke-width="1.2"
+        stroke-linecap="round" stroke-linejoin="round"/>
+      <!-- Right arrow -->
+      <path d="M27 8 L33 8 M33 8 L29 5 M33 8 L29 11"
+        stroke="rgba(167,139,250,0.85)" stroke-width="1.2"
+        stroke-linecap="round" stroke-linejoin="round"/>
+      <!-- Center dashed line -->
+      <line x1="10" y1="8" x2="26" y2="8"
+        stroke="rgba(167,139,250,0.3)" stroke-width="1"
+        stroke-dasharray="2.5 2.5"/>
+    </svg>
+  </div>
+
+</div>

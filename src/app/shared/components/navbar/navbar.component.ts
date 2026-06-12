@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { CursorActionDirective } from '../../directives/cursor-action.directive';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, CursorActionDirective],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss',
 })

@@ -1,0 +1,253 @@
+// ── Design tokens ─────────────────────────────────────────────────────────
+$lavender:    #a78bfa;
+$blue:        #60a5fa;
+$lavender-55: rgba(167, 139, 250, 0.55);
+$lavender-85: rgba(167, 139, 250, 0.85);
+$blue-50:     rgba(96, 165, 250, 0.50);
+$blue-20:     rgba(96, 165, 250, 0.20);
+
+// ── Host ──────────────────────────────────────────────────────────────────
+:host { display: contents; }
+
+// ── Cursor root ───────────────────────────────────────────────────────────
+.cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 99999;
+  pointer-events: none;
+  user-select: none;
+  opacity: 0;
+  // Hardware-accelerated position via CSS custom properties
+  transform: translate3d(var(--cx, -200px), var(--cy, -200px), 0);
+  will-change: transform;
+  transition: opacity 0.25s ease;
+
+  // All child states sit on top of each other, hidden by default
+  & > * {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transition: opacity 0.18s ease;
+    pointer-events: none;
+  }
+
+  // ── Visibility per state ─────────────────────────────────────────────
+  &[data-state='default'] .cursor__arrow      { opacity: 1; }
+  &[data-state='text']    .cursor__text-ring  { opacity: 1; }
+  &[data-state='action']  .cursor__crosshair  { opacity: 1; }
+  &[data-state='drag']    .cursor__drag       { opacity: 1; }
+}
+
+// ── State 1: Arrow ────────────────────────────────────────────────────────
+.cursor__arrow {
+  // Shift so the SVG tip (cx=2.5, cy=2.5) sits exactly at cursor position
+  transform: translate(-2.5px, -2.5px);
+
+  svg { display: block; }
+}
+
+.cursor__tip-glow {
+  position: absolute;
+  top: 2.5px;
+  left: 2.5px;
+  width: 14px;
+  height: 14px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba($lavender, 0.90) 0%,
+    rgba($blue,     0.40) 45%,
+    transparent           70%
+  );
+  animation: tip-pulse 2.8s ease-in-out infinite;
+}
+
+@keyframes tip-pulse {
+  0%, 100% { transform: translate(-50%, -50%) scale(1);   opacity: 0.85; }
+  50%       { transform: translate(-50%, -50%) scale(2.2); opacity: 0.30; }
+}
+
+// ── State 2: Text ring ────────────────────────────────────────────────────
+.cursor__text-ring {
+  $size: 56px;
+  width: $size;
+  height: $size;
+  border-radius: 50%;
+  border: 1px solid rgba($blue, 0.55);
+  // Center ring on cursor position
+  transform: translate(-50%, -50%);
+  backdrop-filter: blur(6px) saturate(1.6);
+  -webkit-backdrop-filter: blur(6px) saturate(1.6);
+  background: rgba($blue, 0.04);
+  box-shadow:
+    0 0 0 1px rgba($blue, 0.12),
+    0 0 18px rgba($blue, 0.18),
+    inset 0 0 18px rgba($blue, 0.06);
+  animation: ring-pulse 3s ease-in-out infinite;
+
+  // Entry animation overrides pulse until removed by JS
+  &.is-entering {
+    animation: ring-enter 0.38s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  }
+}
+
+@keyframes ring-pulse {
+  0%, 100% {
+    box-shadow:
+      0 0 0 1px rgba($blue, 0.12),
+      0 0 18px rgba($blue, 0.18),
+      inset 0 0 18px rgba($blue, 0.06);
+    border-color: rgba($blue, 0.55);
+  }
+  50% {
+    box-shadow:
+      0 0 0 1px rgba($blue, 0.22),
+      0 0 30px rgba($blue, 0.32),
+      inset 0 0 28px rgba($blue, 0.12);
+    border-color: rgba($blue, 0.80);
+  }
+}
+
+@keyframes ring-enter {
+  from {
+    transform: translate(-50%, -50%) scale(0.55);
+    opacity: 0;
+    border-color: rgba($blue, 0.2);
+  }
+  to {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+    border-color: rgba($blue, 0.55);
+  }
+}
+
+// ── State 3: Crosshair ────────────────────────────────────────────────────
+.cursor__crosshair {
+  $size: 46px;
+  width:  $size;
+  height: $size;
+  transform: translate(-50%, -50%);
+  position: relative;
+}
+
+.cursor__cross {
+  position: absolute;
+  inset: 0;
+
+  &-h, &-v {
+    position: absolute;
+    background: $lavender-55;
+    border-radius: 1px;
+  }
+
+  &-h {
+    top: 50%;
+    left: 7px;
+    right: 7px;
+    height: 1px;
+    transform: translateY(-50%);
+  }
+
+  &-v {
+    left: 50%;
+    top: 7px;
+    bottom: 7px;
+    width: 1px;
+    transform: translateX(-50%);
+  }
+}
+
+// Center lock dot — pulses when entering action state
+.cursor__lock-dot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 4px;
+  height: 4px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: $lavender;
+}
+
+// Corner brackets
+$bk: 8px; // arm length
+
+.cursor__bracket {
+  position: absolute;
+  width:  $bk;
+  height: $bk;
+
+  &--tl {
+    top: 0; left: 0;
+    border-top:  1.2px solid $lavender-85;
+    border-left: 1.2px solid $lavender-85;
+  }
+  &--tr {
+    top: 0; right: 0;
+    border-top:   1.2px solid $lavender-85;
+    border-right: 1.2px solid $lavender-85;
+  }
+  &--bl {
+    bottom: 0; left: 0;
+    border-bottom: 1.2px solid $lavender-85;
+    border-left:   1.2px solid $lavender-85;
+  }
+  &--br {
+    bottom: 0; right: 0;
+    border-bottom: 1.2px solid $lavender-85;
+    border-right:  1.2px solid $lavender-85;
+  }
+}
+
+// "Target locking" bracket animations — triggered by JS via .is-entering
+.cursor__crosshair.is-entering {
+  .cursor__lock-dot {
+    animation: lock-dot 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  }
+
+  .cursor__bracket--tl { animation: bk-tl 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) both; }
+  .cursor__bracket--tr { animation: bk-tr 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) both 30ms; }
+  .cursor__bracket--bl { animation: bk-bl 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) both 30ms; }
+  .cursor__bracket--br { animation: bk-br 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) both 60ms; }
+}
+
+@keyframes bk-tl {
+  from { transform: translate(-6px, -6px); opacity: 0; }
+  to   { transform: translate(0, 0);       opacity: 1; }
+}
+@keyframes bk-tr {
+  from { transform: translate(6px, -6px);  opacity: 0; }
+  to   { transform: translate(0, 0);       opacity: 1; }
+}
+@keyframes bk-bl {
+  from { transform: translate(-6px, 6px);  opacity: 0; }
+  to   { transform: translate(0, 0);       opacity: 1; }
+}
+@keyframes bk-br {
+  from { transform: translate(6px, 6px);   opacity: 0; }
+  to   { transform: translate(0, 0);       opacity: 1; }
+}
+@keyframes lock-dot {
+  0%   { transform: translate(-50%, -50%) scale(0);   opacity: 0; }
+  60%  { transform: translate(-50%, -50%) scale(1.8); opacity: 1; }
+  100% { transform: translate(-50%, -50%) scale(1);   opacity: 1; }
+}
+
+// ── State 4: Drag indicator ───────────────────────────────────────────────
+.cursor__drag {
+  transform: translate(-50%, -50%);
+
+  svg { display: block; }
+}
+
+// ── Reduced motion: disable all custom cursor animations ──────────────────
+@media (prefers-reduced-motion: reduce) {
+  .cursor__tip-glow,
+  .cursor__text-ring,
+  .cursor__lock-dot {
+    animation: none !important;
+  }
+}

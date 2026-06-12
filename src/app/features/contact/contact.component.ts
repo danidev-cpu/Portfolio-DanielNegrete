@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { CursorTextDirective } from '../../shared/directives/cursor-text.directive';
+import { CursorActionDirective } from '../../shared/directives/cursor-action.directive';
 
 @Component({
   selector: 'app-contact',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, CursorTextDirective, CursorActionDirective],
   templateUrl: './contact.component.html',
   styleUrl: './contact.component.scss',
 })

@@ -1,6 +1,6 @@
 <nav class="navbar" role="navigation" aria-label="Main navigation">
   <div class="navbar__container">
-    <a class="navbar__brand" href="#inicio" (click)="scrollTo($event, 'inicio')" aria-label="Inicio">
+    <a class="navbar__brand" href="#inicio" (click)="scrollTo($event, 'inicio')" aria-label="Inicio" cursorAction>
       <span class="navbar__brand-text">DN<span class="navbar__brand-dot">.</span></span>
     </a>
 
@@ -23,6 +23,7 @@
             class="navbar__link"
             [href]="'#' + link.fragment"
             (click)="scrollTo($event, link.fragment)"
+            cursorAction
           >{{ link.label }}</a>
         </li>
       }
