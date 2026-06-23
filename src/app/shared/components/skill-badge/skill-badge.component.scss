@@ -1,0 +1,59 @@
+.skill-badge {
+  --badge-color: #7c6af7;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.38rem 0.9rem;
+  border-radius: 8px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: color-mix(in srgb, var(--badge-color) 82%, white);
+  background: color-mix(in srgb, var(--badge-color) 14%, transparent);
+  border: 1px solid color-mix(in srgb, var(--badge-color) 38%, transparent);
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+  cursor: default;
+
+  &:hover {
+    background: color-mix(in srgb, var(--badge-color) 22%, transparent);
+    border-color: color-mix(in srgb, var(--badge-color) 55%, transparent);
+    color: color-mix(in srgb, var(--badge-color) 90%, white);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px color-mix(in srgb, var(--badge-color) 22%, transparent);
+  }
+
+  &--light {
+    color: rgba(255, 255, 255, 0.92);
+
+    &:hover {
+      color: #fff;
+    }
+  }
+
+  &__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+    color: var(--badge-color);
+
+    svg,
+    img {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+  }
+
+  &__label {
+    line-height: 1;
+  }
+}

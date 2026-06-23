@@ -59,8 +59,8 @@
           <div class="skill-group">
             <h3 class="skill-group__title">{{ group.category }}</h3>
             <div class="skill-group__badges">
-              @for (item of group.items; track item) {
-                <span class="badge">{{ item }}</span>
+              @for (item of group.items; track item.name) {
+                <app-skill-badge [skill]="item" />
               }
             </div>
           </div>

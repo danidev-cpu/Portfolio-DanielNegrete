@@ -15,9 +15,15 @@ export interface Experience {
   highlights: string[];
 }
 
+export interface SkillItem {
+  name: string;
+  color: string;
+  icon: string;
+}
+
 export interface Skill {
   category: string;
-  items: string[];
+  items: SkillItem[];
 }
 
 export interface About {

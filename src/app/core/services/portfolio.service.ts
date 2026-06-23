@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { resolveSkillItem } from '../data/skill-items.data';
 import { About, Experience, Project, Skill } from '../models/portfolio.models';
 
 @Injectable({ providedIn: 'root' })
@@ -62,11 +63,19 @@ export class PortfolioService {
   readonly skills: Skill[] = [
     {
       category: 'Desarrollo',
-      items: ['Angular', 'Laravel', 'JavaScript', 'PHP', 'Java', 'Spring Boot'],
+      items: [
+        'Prompt Engineering',
+        'Angular',
+        'Laravel',
+        'JavaScript',
+        'PHP',
+        'Java',
+        'Spring Boot',
+      ].map(resolveSkillItem),
     },
     {
       category: 'Sistemas',
-      items: ['Linux', 'Metasploit', 'Wireshark', 'Git'],
+      items: ['Linux', 'Metasploit', 'Wireshark', 'Git'].map(resolveSkillItem),
     },
   ];
 }
