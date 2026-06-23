@@ -18,7 +18,7 @@ export class PortfolioService {
     },
     {
       name: 'School Cafeteria',
-      stack: ['Spring Boot', 'Java'],
+      stack: ['HTML/CSS', 'Sass'],
       description: 'Gestión de servicios de cafetería escolar.',
       url: 'https://danidev-cpu2.github.io/landing-page/',
     },
